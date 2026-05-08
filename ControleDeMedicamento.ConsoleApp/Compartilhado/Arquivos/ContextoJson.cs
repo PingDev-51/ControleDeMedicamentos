@@ -14,7 +14,7 @@ public class ContextoJson
         Directory.CreateDirectory(caminhoDowloads);
     }
 
-   // public List<Categoria> Categoria { get; set; } = new List<Categoria>();
+    //public List<Categoria> Categoria { get; set; } = new List<Categoria>();
     //public List<Produto> Produto { get; set; } = new List<Produto>();
     //public List<ListaCompra> ListaCompra { get; set; } = new List<ListaCompra>();
 
