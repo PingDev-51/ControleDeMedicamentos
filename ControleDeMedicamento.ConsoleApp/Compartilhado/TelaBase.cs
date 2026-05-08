@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using ListaDeCompra.ConsoleApp.ModuloCategoria;
 
 namespace ListaDeCompra.ConsoleApp.Compartilhado;
 

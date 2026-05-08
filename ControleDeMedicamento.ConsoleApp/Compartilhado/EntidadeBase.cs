@@ -1,7 +1,5 @@
 using System;
 using System.Security.Cryptography;
-using ListaDeCompra.ConsoleApp.ModuloCategoria;
-
 
 namespace ListaDeCompra.ConsoleApp.Compartilhado;
 

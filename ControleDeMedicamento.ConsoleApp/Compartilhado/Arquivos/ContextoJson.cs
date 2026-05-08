@@ -1,8 +1,5 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using ListaDeCompra.ConsoleApp.ModuloCategoria;
-using ListaDeCompra.ConsoleApp.ModuloListaDeCompras;
-using ListaDeCompra.ConsoleApp.ModuloProduto;
 
 namespace ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
@@ -17,9 +14,9 @@ public class ContextoJson
         Directory.CreateDirectory(caminhoDowloads);
     }
 
-    public List<Categoria> Categoria { get; set; } = new List<Categoria>();
-    public List<Produto> Produto { get; set; } = new List<Produto>();
-    public List<ListaCompra> ListaCompra { get; set; } = new List<ListaCompra>();
+   // public List<Categoria> Categoria { get; set; } = new List<Categoria>();
+    //public List<Produto> Produto { get; set; } = new List<Produto>();
+    //public List<ListaCompra> ListaCompra { get; set; } = new List<ListaCompra>();
 
     public void Salvar()
     {
@@ -56,9 +53,9 @@ public class ContextoJson
         if (contextoSalvo == null)
             return;
 
-        this.Categoria = contextoSalvo.Categoria;
-        this.Produto = contextoSalvo.Produto;
-        this.ListaCompra = contextoSalvo.ListaCompra;
+        //this.Categoria = contextoSalvo.Categoria;
+        //this.Produto = contextoSalvo.Produto;
+        //this.ListaCompra = contextoSalvo.ListaCompra;
 
     }
 }
