@@ -10,7 +10,7 @@ public class Funcionario : EntidadeBase
     public string Telefone { get; set; }
     public string Cpf { get; set; }
 
-    public Funcionario(string nome, string telefone = null, string cpf = null)
+    public Funcionario(string nome, string telefone, string cpf)
     {
         Nome = nome;
         Telefone = telefone;
