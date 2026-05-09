@@ -13,8 +13,6 @@ public class ContextoJson
         string caminhoArquivo = Path.Combine(caminhoAppData, "Dados.json");
 
         Directory.CreateDirectory(caminhoDowloads);
-
-        Carregar();
     }
 
     public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
@@ -59,6 +57,5 @@ public class ContextoJson
         this.Pacientes = contextoSalvo.Pacientes;
         //this.Produto = contextoSalvo.Produto;
         //this.ListaCompra = contextoSalvo.ListaCompra;
-
     }
 }
