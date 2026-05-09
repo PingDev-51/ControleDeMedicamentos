@@ -2,17 +2,20 @@
 using System.Collections;
 using System.Net;
 using System.Runtime.CompilerServices;
+using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
-class TelaPrincipal 
+class TelaPrincipal
 {
     //instaciar o repositorio de fornecedores aqui em baixo
 
     private readonly RepositorioPaciente repositorioPaciente;
+    private readonly RepositorioFuncionarios repositorioFuncionarios;
 
-    public TelaPrincipal(RepositorioPaciente repositorioPaciente)
+    public TelaPrincipal(RepositorioPaciente repositorioPaciente, RepositorioFuncionarios repositorioFuncionarios)
     {
         this.repositorioPaciente = repositorioPaciente;
+        this.repositorioFuncionarios = repositorioFuncionarios;
     }
 
     public ITelaOpcoes? ApresentarMenuOpcoesPrincipal()
@@ -36,6 +39,12 @@ class TelaPrincipal
 
         if (opcaoMenuPrincipal == "2")
             return new TelaPaciente("Pacientes", repositorioPaciente);
+
+        if (opcaoMenuPrincipal == "3")
+            return null; // passar modulo de pacientes aqui
+
+        if (opcaoMenuPrincipal == "4")
+            return new TelaFuncionario("Funcinarios", repositorioFuncionarios);
 
         return null;
     }

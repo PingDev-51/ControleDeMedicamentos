@@ -1,11 +1,13 @@
-﻿using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
+﻿using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
+using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 ContextoJson contexto = new ContextoJson();
 
 RepositorioPaciente repositorioPaciente = new RepositorioPaciente(contexto);
-TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioPaciente);
+RepositorioFuncionarios repositorioFuncionarios = new RepositorioFuncionarios(contexto);
+TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioPaciente, repositorioFuncionarios);
 
 while (true)
 {
