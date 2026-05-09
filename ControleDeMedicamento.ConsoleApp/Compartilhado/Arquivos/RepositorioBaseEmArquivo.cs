@@ -16,13 +16,6 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase
         this.registros = CarregarRegistros();
     }
 
-    public RepositorioBaseEmArquivo(ContextoJson contexto)
-    {
-        this.contexto = contexto;
-
-        this.registros = CarregarRegistros();
-    }
-
     protected abstract List<T> CarregarRegistros();
 
     public void Cadastrar(T entidade)
