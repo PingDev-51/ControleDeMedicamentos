@@ -5,7 +5,7 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 
 public class TelaPaciente : TelaBase<Paciente>, ITelaCrud, ITelaOpcoes
 {
-    public TelaPaciente(string nomeEntidade, RepositorioPaciente repositorio): base(nomeEntidade, repositorio)
+    public TelaPaciente(string nomeEntidade, RepositorioPaciente repositorio) : base(nomeEntidade, repositorio)
     {
     }
 
@@ -53,5 +53,26 @@ public class TelaPaciente : TelaBase<Paciente>, ITelaCrud, ITelaOpcoes
         string? Cpf = Console.ReadLine() ?? string.Empty;
 
         return new Paciente(Nome, Telefone, CartaoSus, Cpf);
+    }
+
+    protected override List<string> ValidarRegistroDuplicado(Paciente? novaEntidade = null, string? idIgnorado = null)
+    {
+        List<string> erros = new List<string>();
+
+        if (novaEntidade == null)
+            return erros;
+
+        List<Paciente> pacientes = repositorio.SelecionarTodos();
+
+        foreach (Paciente p in pacientes)
+        {
+            if (p.Id != idIgnorado && p.CartaoSus == novaEntidade.CartaoSus)
+            {
+                erros.Add("Já existe um paciente com esse cartão do sus");
+                break;
+            }
+        }
+
+        return erros;
     }
 }

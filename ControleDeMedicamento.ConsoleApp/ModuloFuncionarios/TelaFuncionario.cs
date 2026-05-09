@@ -48,6 +48,27 @@ public class TelaFuncionario : TelaBase<Funcionario>, ITelaCrud, ITelaOpcoes
         Console.Write("Digite o CPF do funcionario: ");
         string? Cpf = Console.ReadLine() ?? string.Empty;
 
-        return new Funcionario (Nome, Telefone, Cpf);
+        return new Funcionario(Nome, Telefone, Cpf);
+    }
+
+    protected override List<string> ValidarRegistroDuplicado(Funcionario? novaEntidade = null, string? idIgnorado = null)
+    {
+        List<string> erros = new List<string>();
+
+        if (novaEntidade == null)
+            return erros;
+
+        List<Funcionario> funcionarios = repositorio.SelecionarTodos();
+
+        foreach (Funcionario f in funcionarios)
+        {
+            if (f.Id != idIgnorado && f.Cpf == novaEntidade.Cpf)
+            {
+                erros.Add("Já existe um funcionário com esse CPF");
+                break;
+            }
+        }
+
+        return erros;
     }
 }
