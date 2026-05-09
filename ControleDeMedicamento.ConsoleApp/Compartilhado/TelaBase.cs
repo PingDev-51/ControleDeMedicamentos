@@ -59,7 +59,6 @@ public abstract class TelaBase<T> where T : EntidadeBase
 
         if (erros.Length > 0)
         {
-            // adicionar uma classe statica para mostrar os erros
             Console.WriteLine("==============================================");
 
             Console.ForegroundColor = ConsoleColor.Red;
@@ -186,18 +185,6 @@ public abstract class TelaBase<T> where T : EntidadeBase
             Console.Write("Digite o ID do registro que deseja excluir: ");
             idSelecionado = Console.ReadLine();
 
-            // if (DeveExcluir() == ExisteUmaEntidade.existe) // se não for falso (Existe uma entidade vinculada) entao não deleta nada
-            // {
-            //     Console.ForegroundColor = ConsoleColor.Red;
-            //     Console.WriteLine("Você não pode excluir uma categoria que contem produtos vinculados");
-            //     Console.ResetColor();
-
-            //     Console.WriteLine("Pressione ENTER para continuar..");
-            //     Console.ReadLine();
-
-            //     Excluir();
-            // }
-
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
                 break;
         } while (true);
@@ -217,7 +204,7 @@ public abstract class TelaBase<T> where T : EntidadeBase
 
     protected void ExibirCabecalho(string titulo)
     {
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("==============================================");
         Console.WriteLine($"Gestão de {nomeEntidade}");
         Console.WriteLine("==============================================");
@@ -233,15 +220,5 @@ public abstract class TelaBase<T> where T : EntidadeBase
         Console.Write("Digite ENTER para continuar...");
         Console.ReadLine();
     }
-
-    // public virtual ExisteUmaEntidade DeveExcluir()
-    // {
-    //     bool existeUmaEntidade = true;
-
-    //     if (!existeUmaEntidade) // se existe uma entidade retorna verdadeiro 
-    //         return ExisteUmaEntidade.nao_existe;
-    //     return ExisteUmaEntidade.existe;
-
-    // }
     protected abstract T ObterDadosCadastrais();
 }

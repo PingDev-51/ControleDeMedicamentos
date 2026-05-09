@@ -8,19 +8,19 @@ public class ContextoJson
 {
     public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
 
+    private readonly string caminhoArquivo;
     public ContextoJson()
     {
         string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); // 
-        string caminhoArquivo = Path.Combine(caminhoAppData, "Dados.json");
+        string caminhoDiretorio = Path.Combine(caminhoAppData, "PastaDados.json");
 
-        Directory.CreateDirectory(caminhoArquivo);
+        Directory.CreateDirectory(caminhoDiretorio);
+
+        caminhoArquivo = Path.Combine(caminhoDiretorio, "dados.json");
     }
 
     public void Salvar()
     {
-        string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        string caminhoArquivo = caminhoAppData + "\\Dados.json";
-
         JsonSerializerOptions opcoesJson = new JsonSerializerOptions();
         opcoesJson.WriteIndented = true;
         opcoesJson.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
@@ -33,17 +33,14 @@ public class ContextoJson
 
     public void Carregar()
     {
-
-        string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        string caminhoArquivo = caminhoAppData + "\\Dados.json";
-
         if (!File.Exists(caminhoArquivo))
-            Console.WriteLine("A parta não existe");
-
-        JsonSerializerOptions opcoesJson = new JsonSerializerOptions();
-        opcoesJson.ReferenceHandler = ReferenceHandler.Preserve;
+            return;
 
         string jsonString = File.ReadAllText(caminhoArquivo);
+
+        JsonSerializerOptions opcoesJson = new JsonSerializerOptions();
+        opcoesJson.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        opcoesJson.ReferenceHandler = ReferenceHandler.Preserve;
 
         ContextoJson? contextoSalvo = JsonSerializer.Deserialize<ContextoJson>(jsonString, opcoesJson);
 

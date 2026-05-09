@@ -5,14 +5,12 @@ namespace ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase
 {
     protected List<T> registros;
-
     protected ContextoJson contexto;
 
     public RepositorioBaseEmArquivo(ContextoJson contexto)
     {
         this.contexto = contexto;
-
-        registros = CarregarRegistros();
+        this.registros = CarregarRegistros();
     }
 
     protected abstract List<T> CarregarRegistros();
@@ -38,6 +36,16 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase
         return true;
     }
 
+    public bool Excluir(T registro)
+    {
+        bool conseguiuExcluir = registros.Remove(registro);
+
+        if (conseguiuExcluir)
+            contexto.Salvar();
+
+        return conseguiuExcluir;
+    }
+
     public bool Excluir(string idSelecionado)
     {
         T? registroSelecionado = SelecionarPorId(idSelecionado);
@@ -45,9 +53,7 @@ public abstract class RepositorioBaseEmArquivo<T> where T : EntidadeBase
         if (registroSelecionado == null)
             return false;
 
-        registros.Remove(registroSelecionado);
-        contexto.Salvar();
-        return true;
+        return Excluir(registroSelecionado);
     }
 
     public T? SelecionarPorId(string idSelecionado)

@@ -10,6 +10,10 @@ public class Paciente : EntidadeBase
     public string CartaoSus { get; set; }
     public string Cpf { get; set; }
 
+    public Paciente() // cosntrutor vasio para o Deserialize funcionar corretamente.
+    {
+    }
+
     public Paciente(string nome, string telefone, string cartaoSus, string cpf)
     {
         Nome = nome;
@@ -17,6 +21,7 @@ public class Paciente : EntidadeBase
         CartaoSus = cartaoSus;
         Cpf = cpf;
     }
+
 
     public override void AtualizarDados(EntidadeBase entidadeAtualizada)
     {
