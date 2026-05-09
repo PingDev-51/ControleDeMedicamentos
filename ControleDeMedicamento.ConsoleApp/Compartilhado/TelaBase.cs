@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
+using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 namespace ListaDeCompra.ConsoleApp.Compartilhado;
 
 public abstract class TelaBase<T> where T : EntidadeBase
 {
     public string nomeEntidade = string.Empty;
-    protected RepositorioBaseEmMemoria<T> repositorio;
+    protected RepositorioBaseEmArquivo<T> repositorio;
 
-    protected TelaBase(string nomeEntidade, RepositorioBaseEmMemoria<T> repositorio)
+    protected TelaBase(string nomeEntidade, RepositorioBaseEmArquivo<T> repositorio)
     {
         this.nomeEntidade = nomeEntidade;
         this.repositorio = repositorio;

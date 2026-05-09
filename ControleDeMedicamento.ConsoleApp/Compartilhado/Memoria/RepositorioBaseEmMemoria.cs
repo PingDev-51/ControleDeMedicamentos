@@ -1,6 +1,7 @@
 using System;
 using System.Collections; //biblioteca que contem classes de coleções que utilizam herança
-using System.Collections.Generic; //biblioteca que contem classes de coleções que utilizam herança
+using System.Collections.Generic;
+using ControleDeMedicamento.ConsoleApp.ModuloPacientes; //biblioteca que contem classes de coleções que utilizam herança
 
 namespace ListaDeCompra.ConsoleApp.Compartilhado;
 
@@ -95,4 +96,5 @@ public abstract class RepositorioBaseEmMemoria<T> where T : EntidadeBase // cons
     {
         return registros;
     }
+
 }
