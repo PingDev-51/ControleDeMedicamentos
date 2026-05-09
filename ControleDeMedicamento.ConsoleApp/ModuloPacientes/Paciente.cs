@@ -5,7 +5,7 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 
 public class Paciente : EntidadeBase
 {
-   public string Nome { get; set; }
+    public string Nome { get; set; }
     public string Telefone { get; set; }
     public string CartaoSus { get; set; }
     public string Cpf { get; set; }
@@ -47,7 +47,7 @@ public class Paciente : EntidadeBase
 
         else if (Telefone.Length == 14 && Telefone[9] != '-')
             erros += "O Campo \"Telefone\" deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.;";
-            
+
         else if (Telefone.Length == 15 && Telefone[10] != '-')
             erros += "O Campo \"Telefone\" deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.;";
 
