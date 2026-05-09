@@ -10,9 +10,11 @@ public class ContextoJson
     {
         string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         string caminhoDowloads = Path.Combine(caminhoAppData, "ListaDeCompras");
-        string caminhoArquivo = Path.Combine(caminhoAppData, "\\Dados.json");
+        string caminhoArquivo = Path.Combine(caminhoAppData, "Dados.json");
 
         Directory.CreateDirectory(caminhoDowloads);
+
+        Carregar();
     }
 
     public List<Paciente> Pacientes { get; set; } = new List<Paciente>();

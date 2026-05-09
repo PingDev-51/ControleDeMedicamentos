@@ -5,12 +5,12 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 
 public class Paciente : EntidadeBase
 {
-    string Nome { get; set; }
-    int Telefone { get; set; }
-    int CartaoSus { get; set; }
-    int Cpf { get; set; }
+   public string Nome { get; set; }
+    public string Telefone { get; set; }
+    public string CartaoSus { get; set; }
+    public string Cpf { get; set; }
 
-    public Paciente(string nome, int telefone, int cartaoSus, int cpf)
+    public Paciente(string nome, string telefone, string cartaoSus, string cpf)
     {
         Nome = nome;
         Telefone = telefone;
@@ -33,29 +33,28 @@ public class Paciente : EntidadeBase
     {
         string erros = string.Empty;
 
-        if (Nome.Length == 3 || Nome.Length > 100)
+        if (Nome.Length < 3 || Nome.Length > 100)
             erros += "O Campo \"Nome\" deve conter no entre 3 e 100 caracteres.;";
-        string telefone = Telefone.ToString();
 
-        if (string.IsNullOrWhiteSpace(telefone))
+        if (string.IsNullOrWhiteSpace(Telefone))
             erros += "O Campo \"Telefone\" é obrigatório.;";
 
-        else if (telefone.Length != 14 && telefone.Length != 15)
+        else if (Telefone.Length != 14 && Telefone.Length != 15)
             erros += "O Campo \"Telefone\" deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.;";
 
-        else if (telefone[0] != '(' || telefone[3] != ')' || telefone[4] != ' ')
+        else if (Telefone[0] != '(' || Telefone[3] != ')' || Telefone[4] != ' ')
             erros += "O Campo \"Telefone\" deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.;";
 
-        else if (telefone.Length == 14 && telefone[9] != '-')
+        else if (Telefone.Length == 14 && Telefone[9] != '-')
             erros += "O Campo \"Telefone\" deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.;";
             
-        else if (telefone.Length == 15 && telefone[10] != '-')
+        else if (Telefone.Length == 15 && Telefone[10] != '-')
             erros += "O Campo \"Telefone\" deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.;";
 
-        if (CartaoSus.ToString().Length > 15)
+        if (CartaoSus.Length > 15)
             erros += "O Campo \"Cartão Do SUS\" deve conter 15 digitos;";
 
-        if (Cpf.ToString().Length > 11)
+        if (Cpf.Length > 11)
             erros += "O Campo \"CPF\" deve conter 11 digitos;";
 
         return erros.Split(';', StringSplitOptions.RemoveEmptyEntries);
