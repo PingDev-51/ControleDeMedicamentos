@@ -1,10 +1,20 @@
-﻿using ControleDeMedicamento.ConsoleApp.Compartilhado;
+﻿using System.Text.Json;
+using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 ContextoJson contexto = new ContextoJson();
-contexto.Carregar();
+try
+{
+    contexto.Carregar();
+}
+catch (JsonException)
+{
+    Console.WriteLine("O arquivo de armazenamento esta corrompido, contate a administração.");
+    Console.WriteLine("Pressione ENTER para continuar..");
+    Console.ReadLine();
+}
 
 IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
 TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioPaciente);
