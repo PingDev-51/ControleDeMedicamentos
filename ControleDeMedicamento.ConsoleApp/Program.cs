@@ -2,6 +2,7 @@
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
+using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
@@ -20,6 +21,7 @@ catch (JsonException)
 }
 
 
+IRepositorio<Fornecedor> repositorioFornecedor = new RepositorioFornecedoresEmArquivo(contexto);
 IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
 IRepositorio<Funcionario> repositorioFuncionario = new RepositorioFuncionarios(contexto);
 RepositorioSaida repositorioSaida = new RepositorioSaida();
@@ -27,7 +29,7 @@ TelaPaciente telaPaciente = new TelaPaciente("Pacientes", repositorioPaciente);
 
 TelaEstoque telaEstoque = new TelaEstoque(repositorioSaida, telaPaciente, repositorioPaciente);
 
-TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioPaciente, repositorioFuncionario, telaEstoque);
+TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioFuncionario, telaEstoque);
 
 while (true)
 {
@@ -36,19 +38,13 @@ while (true)
     if (telaSelecionada == null)
     {
         Console.Clear();
-
-
-        continue;
+        break;
     }
 
     while (true)
     {
         string? opcaoSubMenu = telaSelecionada.ObterOpcaoMenu();
-        if (opcaoSubMenu == "S")
-        {
-            Console.Clear();
-            break;
-        }
+
         if (telaSelecionada is ITelaCrud telaCrud)
         {
             if (opcaoSubMenu == "1")
@@ -62,6 +58,8 @@ while (true)
 
             else if (opcaoSubMenu == "4")
                 telaCrud.VisualizarTodos(deveExibirCabecalho: true);
+            if (opcaoSubMenu == "S")
+                break;
         }
     }
 }
