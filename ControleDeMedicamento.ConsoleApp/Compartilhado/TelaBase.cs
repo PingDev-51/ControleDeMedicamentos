@@ -92,6 +92,7 @@ public abstract class TelaBase<T> where T : EntidadeBase
             Console.ReadLine();
 
             Cadastrar();
+            return;
         }
 
         repositorio.Cadastrar(novaEntidade);
@@ -158,6 +159,7 @@ public abstract class TelaBase<T> where T : EntidadeBase
             Console.ReadLine();
 
             Cadastrar();
+            return;
         }
 
         bool conseguiuEditar = repositorio.Editar(idSelecionado, novaEntidade);

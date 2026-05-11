@@ -1,31 +1,28 @@
 using System;
+using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 
-namespace ControleDeMedicamento.ConsoleApp.ModuloPacientes;
+namespace ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 
-public class Paciente : EntidadeBase
+public class Funcionario : EntidadeBase
 {
     public string Nome { get; set; }
     public string Telefone { get; set; }
-    public string CartaoSus { get; set; }
     public string Cpf { get; set; }
 
-    public Paciente(string nome, string telefone, string cartaoSus, string cpf)
+    public Funcionario(string nome, string telefone, string cpf)
     {
         Nome = nome;
         Telefone = telefone;
-        CartaoSus = cartaoSus;
         Cpf = cpf;
     }
-
     public override void AtualizarDados(EntidadeBase entidadeAtualizada)
     {
-        Paciente pacienteAtualizado = (Paciente)entidadeAtualizada;
+        Funcionario funcionarioAtualizado = (Funcionario)entidadeAtualizada;
 
-        Nome = pacienteAtualizado.Nome;
-        Telefone = pacienteAtualizado.Telefone;
-        CartaoSus = pacienteAtualizado.CartaoSus;
-        Cpf = pacienteAtualizado.Cpf;
+        Nome = funcionarioAtualizado.Nome;
+        Telefone = funcionarioAtualizado.Telefone;
+        Cpf = funcionarioAtualizado.Cpf;
 
     }
 
@@ -50,9 +47,6 @@ public class Paciente : EntidadeBase
 
         else if (Telefone.Length == 15 && Telefone[10] != '-')
             erros += "O Campo \"Telefone\" deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.;";
-
-        if (CartaoSus.Length > 15)
-            erros += "O Campo \"Cartão Do SUS\" deve conter 15 digitos;";
 
         if (Cpf.Length > 11)
             erros += "O Campo \"CPF\" deve conter 11 digitos;";
