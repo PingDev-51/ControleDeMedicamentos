@@ -5,13 +5,14 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 
 public class Paciente : EntidadeBase
 {
-    public string Nome { get; set; }
-    public string Telefone { get; set; }
-    public string CartaoSus { get; set; }
-    public string Cpf { get; set; }
+    public string Nome { get; set; } = string.Empty;
+    public string Telefone { get; set; } = string.Empty;
+    public string CartaoSus { get; set; } = string.Empty;
+    public string Cpf { get; set; } = string.Empty;
 
     public Paciente() // cosntrutor vasio para o Deserialize funcionar corretamente.
     {
+
     }
 
     public Paciente(string nome, string telefone, string cartaoSus, string cpf)
