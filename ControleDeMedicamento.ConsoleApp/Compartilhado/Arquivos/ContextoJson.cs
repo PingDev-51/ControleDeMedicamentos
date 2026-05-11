@@ -7,28 +7,24 @@ namespace ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 public class ContextoJson
 {
+    public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
+    public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
+
+    private readonly string caminhoArquivo;
     public ContextoJson()
     {
-        string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        string caminhoDowloads = Path.Combine(caminhoAppData, "ListaDeCompras");
-        string caminhoArquivo = Path.Combine(caminhoAppData, "Dados.json");
+        string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData); //Leva ate  apasta AppData
+        string caminhoDiretorio = Path.Combine(caminhoAppData, "PastaDados.json");
 
-        Directory.CreateDirectory(caminhoDowloads);
+        Directory.CreateDirectory(caminhoDiretorio);
+
+        caminhoArquivo = Path.Combine(caminhoDiretorio, "dados.json");
     }
 
-    
-    public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
-    //public List<ListaCompra> ListaCompra { get; set; } = new List<ListaCompra>();
-    public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
-  
 
     public void Salvar()
     {
-        string caminhoDowloads = "C:\\Users\\kauan\\Downloads";
-        string caminhoArquivo = caminhoDowloads + "\\Dados.json";
-
         JsonSerializerOptions opcoesJson = new JsonSerializerOptions();
-
         opcoesJson.WriteIndented = true;
         opcoesJson.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         opcoesJson.ReferenceHandler = ReferenceHandler.Preserve;
@@ -40,17 +36,14 @@ public class ContextoJson
 
     public void Carregar()
     {
-
-        string caminhoDowloads = "C:\\Users\\kauan\\Downloads";
-        string caminhoArquivo = caminhoDowloads + "\\Dados.json";
-
         if (!File.Exists(caminhoArquivo))
-            Console.WriteLine("A parta não existe");
-
-        JsonSerializerOptions opcoesJson = new JsonSerializerOptions();
-        opcoesJson.ReferenceHandler = ReferenceHandler.Preserve;
+            return;
 
         string jsonString = File.ReadAllText(caminhoArquivo);
+
+        JsonSerializerOptions opcoesJson = new JsonSerializerOptions();
+        opcoesJson.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        opcoesJson.ReferenceHandler = ReferenceHandler.Preserve;
 
         ContextoJson? contextoSalvo = JsonSerializer.Deserialize<ContextoJson>(jsonString, opcoesJson);
 

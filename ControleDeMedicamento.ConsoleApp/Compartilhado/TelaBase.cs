@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 namespace ListaDeCompra.ConsoleApp.Compartilhado;
 
 public abstract class TelaBase<T> where T : EntidadeBase
+
 {
     public string nomeEntidade = string.Empty;
-    protected RepositorioBaseEmArquivo<T> repositorio;
+    protected IRepositorio<T> repositorio;
 
-    protected TelaBase(string nomeEntidade, RepositorioBaseEmArquivo<T> repositorio)
+    protected TelaBase(string nomeEntidade, IRepositorio<T> repositorio)
     {
         this.nomeEntidade = nomeEntidade;
         this.repositorio = repositorio;
@@ -20,13 +22,6 @@ public abstract class TelaBase<T> where T : EntidadeBase
         string nomeMinusculo = nomeEntidade.ToLower();
 
         Console.Clear();
-        if (nomeEntidade == "Categoria")
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-        else if (nomeEntidade == "Produto")
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-        else if (nomeEntidade == "Lista de compra")
-            Console.ForegroundColor = ConsoleColor.Magenta;
-
         Console.WriteLine("==============================================");
         Console.WriteLine($"Gestão de {nomeEntidade}");
         Console.WriteLine("==============================================");
@@ -53,51 +48,68 @@ public abstract class TelaBase<T> where T : EntidadeBase
         Console.Clear();
         ExibirCabecalho($"Cadastro de {nomeEntidade}");
 
-        T novaEntidade = ObterDadosCadastrais();
-
-        string[] erros = novaEntidade.Validar();
-
-        if (erros.Length > 0)
+        try
         {
-            // adicionar uma classe statica para mostrar os erros
-            Console.WriteLine("==============================================");
+            T novaEntidade = ObterDadosCadastrais();
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            string[] erros = novaEntidade.Validar();
 
-            for (int i = 0; i < erros.Length; i++)
+            if (erros.Length > 0)
             {
-                string erro = erros[i];
+                Console.WriteLine("==============================================");
 
-                Console.WriteLine(erro);
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                for (int i = 0; i < erros.Length; i++)
+                {
+                    string erro = erros[i];
+
+                    Console.WriteLine(erro);
+                }
+
+                Console.ResetColor();
+                Console.WriteLine("==============================================");
+                Console.Write("Digite ENTER para continuar...");
+                Console.ReadLine();
+
+                Cadastrar();
+                return;
             }
 
-            Console.ResetColor();
-            Console.WriteLine("==============================================");
-            Console.Write("Digite ENTER para continuar...");
-            Console.ReadLine();
+            List<string> errosDuplicacao = ValidarRegistroDuplicado(novaEntidade);
 
-            Cadastrar();
-            return;
+            if (errosDuplicacao.Count > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("===============================");
+                Console.WriteLine("Erro nome duplicado");
+                Console.ResetColor();
+                Console.Write("Digite ENTER para continuar...");
+                Console.ReadLine();
+
+                Cadastrar();
+            }
+
+            repositorio.Cadastrar(novaEntidade);
+
+            ExibirMensagem($"O registro \"{novaEntidade.Id}\" foi cadastrado com sucesso!");
         }
-
-        List<string> errosDuplicacao = ValidarRegistroDuplicado(novaEntidade);
-
-        if (errosDuplicacao.Count > 0)
+        catch (FormatException)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("===============================");
-            Console.WriteLine("Erro nome duplicado");
-            Console.ResetColor();
-            Console.Write("Digite ENTER para continuar...");
+            Console.WriteLine("O formato do valor de um dos campos está inválido.");
+            Console.WriteLine("Pressione ENTER para continuar..");
             Console.ReadLine();
-
+            Cadastrar();
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Ocorreu um erro inesperado. Tente novamente");
+            Console.WriteLine("Pressione ENTER para continuar..");
+            Console.ReadLine();
             Cadastrar();
             return;
         }
 
-        repositorio.Cadastrar(novaEntidade);
-
-        ExibirMensagem($"O registro \"{novaEntidade.Id}\" foi cadastrado com sucesso!");
     }
 
     public void Editar()
@@ -121,56 +133,73 @@ public abstract class TelaBase<T> where T : EntidadeBase
 
         Console.WriteLine("==============================================");
 
-        T novaEntidade = ObterDadosCadastrais();
-
-        string[] erros = novaEntidade.Validar();
-
-        if (erros.Length > 0)
+        try
         {
-            Console.WriteLine("==============================================");
+            T novaEntidade = ObterDadosCadastrais();
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            string[] erros = novaEntidade.Validar();
 
-            for (int i = 0; i < erros.Length; i++)
+            if (erros.Length > 0)
             {
-                string erro = erros[i];
+                Console.WriteLine("==============================================");
 
-                Console.WriteLine(erro);
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                for (int i = 0; i < erros.Length; i++)
+                {
+                    string erro = erros[i];
+
+                    Console.WriteLine(erro);
+                }
+
+                Console.ResetColor();
+                Console.WriteLine("==============================================");
+                Console.Write("Digite ENTER para continuar...");
+                Console.ReadLine();
+
+                Editar();
+                return;
             }
 
-            Console.ResetColor();
-            Console.WriteLine("==============================================");
-            Console.Write("Digite ENTER para continuar...");
-            Console.ReadLine();
+            List<string> errosDuplicacao = ValidarRegistroDuplicado(novaEntidade, idSelecionado);
 
+            if (errosDuplicacao.Count > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("===============================");
+                Console.WriteLine("Erro nome duplicado");
+                Console.ResetColor();
+                Console.Write("Digite ENTER para continuar...");
+                Console.ReadLine();
+
+                Editar();
+            }
+
+            bool conseguiuEditar = repositorio.Editar(idSelecionado, novaEntidade);
+
+            if (!conseguiuEditar)
+            {
+                ExibirMensagem("Não foi possível encontrar o registro requisitado.");
+                return;
+            }
+
+            ExibirMensagem($"O registro \"{idSelecionado}\" foi editado com sucesso.");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("O formato do valor de um dos campos está inválido.");
+            Console.WriteLine("Pressione ENTER para continuar..");
+            Console.ReadLine();
             Editar();
-            return;
         }
-
-        List<string> errosDuplicacao = ValidarRegistroDuplicado(novaEntidade, idSelecionado);
-
-        if (errosDuplicacao.Count > 0)
+        catch (Exception)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("===============================");
-            Console.WriteLine("Erro nome duplicado");
-            Console.ResetColor();
-            Console.Write("Digite ENTER para continuar...");
+            Console.WriteLine("Ocorreu um erro inesperado. Tente novamente");
+            Console.WriteLine("Pressione ENTER para continuar..");
             Console.ReadLine();
-
-            Cadastrar();
-            return;
+            Editar();
         }
 
-        bool conseguiuEditar = repositorio.Editar(idSelecionado, novaEntidade);
-
-        if (!conseguiuEditar)
-        {
-            ExibirMensagem("Não foi possível encontrar o registro requisitado.");
-            return;
-        }
-
-        ExibirMensagem($"O registro \"{idSelecionado}\" foi editado com sucesso.");
     }
 
     public void Excluir()
@@ -188,25 +217,13 @@ public abstract class TelaBase<T> where T : EntidadeBase
             Console.Write("Digite o ID do registro que deseja excluir: ");
             idSelecionado = Console.ReadLine();
 
-            // if (DeveExcluir() == ExisteUmaEntidade.existe) // se não for falso (Existe uma entidade vinculada) entao não deleta nada
-            // {
-            //     Console.ForegroundColor = ConsoleColor.Red;
-            //     Console.WriteLine("Você não pode excluir uma categoria que contem produtos vinculados");
-            //     Console.ResetColor();
-
-            //     Console.WriteLine("Pressione ENTER para continuar..");
-            //     Console.ReadLine();
-
-            //     Excluir();
-            // }
-
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
                 break;
         } while (true);
 
-        bool conseguiuExcluir = repositorio.Excluir(idSelecionado);
+        T? registroSelecionado = repositorio.SelecionarPorId(idSelecionado);
 
-        if (!conseguiuExcluir)
+        if (registroSelecionado == null)
         {
             ExibirMensagem("Não foi possível encontrar o registro requisitado.");
             return;
@@ -219,7 +236,7 @@ public abstract class TelaBase<T> where T : EntidadeBase
 
     protected void ExibirCabecalho(string titulo)
     {
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("==============================================");
         Console.WriteLine($"Gestão de {nomeEntidade}");
         Console.WriteLine("==============================================");
@@ -235,15 +252,5 @@ public abstract class TelaBase<T> where T : EntidadeBase
         Console.Write("Digite ENTER para continuar...");
         Console.ReadLine();
     }
-
-    // public virtual ExisteUmaEntidade DeveExcluir()
-    // {
-    //     bool existeUmaEntidade = true;
-
-    //     if (!existeUmaEntidade) // se existe uma entidade retorna verdadeiro 
-    //         return ExisteUmaEntidade.nao_existe;
-    //     return ExisteUmaEntidade.existe;
-
-    // }
     protected abstract T ObterDadosCadastrais();
 }

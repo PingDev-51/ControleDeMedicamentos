@@ -1,11 +1,12 @@
 using System;
+using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 
 public class TelaPaciente : TelaBase<Paciente>, ITelaCrud, ITelaOpcoes
 {
-    public TelaPaciente(string nomeEntidade, RepositorioPaciente repositorio) : base(nomeEntidade, repositorio)
+    public TelaPaciente(string nomeEntidade, IRepositorio<Paciente> repositorio) : base(nomeEntidade, repositorio)
     {
     }
 

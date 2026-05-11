@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Net;
 using System.Runtime.CompilerServices;
+using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
@@ -9,13 +10,13 @@ class TelaPrincipal
 {
     //instaciar o repositorio de fornecedores aqui em baixo
 
-    private readonly RepositorioPaciente repositorioPaciente;
-    private readonly RepositorioFuncionarios repositorioFuncionarios;
+    private readonly IRepositorio<Paciente> repositorioPaciente;
+    private readonly IRepositorio<Funcionario> repositorioFuncionario;
 
-    public TelaPrincipal(RepositorioPaciente repositorioPaciente, RepositorioFuncionarios repositorioFuncionarios)
+    public TelaPrincipal(IRepositorio<Paciente> repositorioPaciente, IRepositorio<Funcionario> repositorioFuncionario)
     {
         this.repositorioPaciente = repositorioPaciente;
-        this.repositorioFuncionarios = repositorioFuncionarios;
+        this.repositorioFuncionario = repositorioFuncionario;
     }
 
     public ITelaOpcoes? ApresentarMenuOpcoesPrincipal()
@@ -31,7 +32,7 @@ class TelaPrincipal
         Console.WriteLine("5 - Gerenciar Estoque");
         Console.WriteLine("S - Sair");
         Console.WriteLine("---------------------------------");
-        Console.Write("> ");
+        Console.Write(">> ");
         string? opcaoMenuPrincipal = Console.ReadLine()?.ToUpper();
 
         if (opcaoMenuPrincipal == "1")
@@ -44,7 +45,7 @@ class TelaPrincipal
             return null; // passar modulo de pacientes aqui
 
         if (opcaoMenuPrincipal == "4")
-            return new TelaFuncionario("Funcinarios", repositorioFuncionarios);
+            return new TelaFuncionario("Funcinarios", repositorioFuncionario);
 
         return null;
     }
