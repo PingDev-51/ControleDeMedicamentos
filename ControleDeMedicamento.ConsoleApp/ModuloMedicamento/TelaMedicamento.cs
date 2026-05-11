@@ -89,8 +89,6 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
             Console.Write("Digite o ID da categoria em que deseja guardar o produto: ");
             idSelecionado = Console.ReadLine();
 
-            // DeveExcluir();
-
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
                 break;
         } while (true);
