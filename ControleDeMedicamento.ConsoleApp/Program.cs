@@ -1,10 +1,12 @@
-﻿using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
+﻿using ControleDeMedicamento.ConsoleApp.Compartilhado;
+using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 ContextoJson contexto = new ContextoJson();
+contexto.Carregar();
 
-RepositorioPaciente repositorioPaciente = new RepositorioPaciente(contexto);
+IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
 TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioPaciente);
 
 while (true)

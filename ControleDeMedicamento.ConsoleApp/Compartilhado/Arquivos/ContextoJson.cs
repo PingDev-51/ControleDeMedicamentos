@@ -11,7 +11,7 @@ public class ContextoJson
     private readonly string caminhoArquivo;
     public ContextoJson()
     {
-        string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); // 
+        string caminhoAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData); //Leva ate  apasta AppData
         string caminhoDiretorio = Path.Combine(caminhoAppData, "PastaDados.json");
 
         Directory.CreateDirectory(caminhoDiretorio);

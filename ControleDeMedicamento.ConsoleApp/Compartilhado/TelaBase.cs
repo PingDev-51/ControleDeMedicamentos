@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
+using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 namespace ListaDeCompra.ConsoleApp.Compartilhado;
 
 public abstract class TelaBase<T> where T : EntidadeBase
+
 {
     public string nomeEntidade = string.Empty;
-    protected RepositorioBaseEmArquivo<T> repositorio;
+    protected IRepositorio<T> repositorio;
 
-    protected TelaBase(string nomeEntidade, RepositorioBaseEmArquivo<T> repositorio)
+    protected TelaBase(string nomeEntidade, IRepositorio<T> repositorio)
     {
         this.nomeEntidade = nomeEntidade;
         this.repositorio = repositorio;
@@ -20,13 +22,6 @@ public abstract class TelaBase<T> where T : EntidadeBase
         string nomeMinusculo = nomeEntidade.ToLower();
 
         Console.Clear();
-        if (nomeEntidade == "Categoria")
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-        else if (nomeEntidade == "Produto")
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
-        else if (nomeEntidade == "Lista de compra")
-            Console.ForegroundColor = ConsoleColor.Magenta;
-
         Console.WriteLine("==============================================");
         Console.WriteLine($"Gestão de {nomeEntidade}");
         Console.WriteLine("==============================================");
@@ -189,9 +184,9 @@ public abstract class TelaBase<T> where T : EntidadeBase
                 break;
         } while (true);
 
-        bool conseguiuExcluir = repositorio.Excluir(idSelecionado);
+        T? registroSelecionado = repositorio.SelecionarPorId(idSelecionado);
 
-        if (!conseguiuExcluir)
+        if (registroSelecionado == null)
         {
             ExibirMensagem("Não foi possível encontrar o registro requisitado.");
             return;

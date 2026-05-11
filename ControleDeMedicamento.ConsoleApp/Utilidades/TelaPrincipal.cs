@@ -2,15 +2,16 @@
 using System.Collections;
 using System.Net;
 using System.Runtime.CompilerServices;
+using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
-class TelaPrincipal 
+class TelaPrincipal
 {
     //instaciar o repositorio de fornecedores aqui em baixo
 
-    private readonly RepositorioPaciente repositorioPaciente;
+    private readonly IRepositorio<Paciente> repositorioPaciente;
 
-    public TelaPrincipal(RepositorioPaciente repositorioPaciente)
+    public TelaPrincipal(IRepositorio<Paciente> repositorioPaciente)
     {
         this.repositorioPaciente = repositorioPaciente;
     }
@@ -28,7 +29,7 @@ class TelaPrincipal
         Console.WriteLine("5 - Gerenciar Estoque");
         Console.WriteLine("S - Sair");
         Console.WriteLine("---------------------------------");
-        Console.Write("> ");
+        Console.Write(">> ");
         string? opcaoMenuPrincipal = Console.ReadLine()?.ToUpper();
 
         if (opcaoMenuPrincipal == "1")
