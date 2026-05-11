@@ -52,6 +52,5 @@ public class ContextoJson
 
         this.Pacientes = contextoSalvo.Pacientes;
         this.Funcionarios = contextoSalvo.Funcionarios;
-        //this.ListaCompra = contextoSalvo.ListaCompra;
     }
 }
