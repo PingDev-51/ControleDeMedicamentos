@@ -1,11 +1,12 @@
 using System;
+using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 
 public class TelaFuncionario : TelaBase<Funcionario>, ITelaCrud, ITelaOpcoes
 {
-    public TelaFuncionario(string nomeEntidade, RepositorioFuncionarios repositorio) : base(nomeEntidade, repositorio)
+    public TelaFuncionario(string nomeEntidade, IRepositorio<Funcionario> repositorio) : base(nomeEntidade, repositorio)
     {
     }
 
