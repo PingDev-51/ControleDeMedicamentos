@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net;
 using System.Runtime.CompilerServices;
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
+using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
@@ -10,12 +11,15 @@ class TelaPrincipal
 {
     //instaciar o repositorio de fornecedores aqui em baixo
 
+    private readonly IRepositorio<Fornecedor> repositorioFornecedor;
     private readonly IRepositorio<Paciente> repositorioPaciente;
     private readonly IRepositorio<Funcionario> repositorioFuncionario;
 
-    public TelaPrincipal(IRepositorio<Paciente> repositorioPaciente, IRepositorio<Funcionario> repositorioFuncionario)
+    public TelaPrincipal(IRepositorio<Fornecedor> repositorioFornecedor, IRepositorio<Paciente> repositorioPaciente, IRepositorio<Funcionario> repositorioFuncionario)
     {
+        this.repositorioFornecedor = repositorioFornecedor;
         this.repositorioPaciente = repositorioPaciente;
+        //medicamentos
         this.repositorioFuncionario = repositorioFuncionario;
     }
 
@@ -36,7 +40,7 @@ class TelaPrincipal
         string? opcaoMenuPrincipal = Console.ReadLine()?.ToUpper();
 
         if (opcaoMenuPrincipal == "1")
-            return null; // passar o modulo de fornecedores aqui
+            return new TelaFornecedores("Fornecedores", repositorioFornecedor);
 
         if (opcaoMenuPrincipal == "2")
             return new TelaPaciente("Pacientes", repositorioPaciente);

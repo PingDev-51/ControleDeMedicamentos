@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
+using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
@@ -17,9 +18,11 @@ catch (JsonException)
     Console.ReadLine();
 }
 
+IRepositorio<Fornecedor> repositorioFornecedor = new RepositorioFornecedoresEmArquivo(contexto);
 IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
 IRepositorio<Funcionario> repositorioFuncionario = new RepositorioFuncionarios(contexto);
-TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioPaciente, repositorioFuncionario);
+
+TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioFuncionario);
 
 while (true)
 {
@@ -28,19 +31,13 @@ while (true)
     if (telaSelecionada == null)
     {
         Console.Clear();
-
-
-        continue;
+        break;
     }
 
     while (true)
     {
         string? opcaoSubMenu = telaSelecionada.ObterOpcaoMenu();
-        if (opcaoSubMenu == "S")
-        {
-            Console.Clear();
-            break;
-        }
+
         if (telaSelecionada is ITelaCrud telaCrud)
         {
             if (opcaoSubMenu == "1")
@@ -54,6 +51,8 @@ while (true)
 
             else if (opcaoSubMenu == "4")
                 telaCrud.VisualizarTodos(deveExibirCabecalho: true);
+            if (opcaoSubMenu == "S")
+                break;
         }
     }
 }
