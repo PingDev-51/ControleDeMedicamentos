@@ -25,6 +25,24 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
         this.repositorioFuncionario = repositorioFuncionario;
     }
 
+    public override string? ObterOpcaoMenu()
+    {
+
+        Console.Clear();
+        Console.WriteLine("==============================================");
+        Console.WriteLine($"Gestão de Estoque (Entrada)");
+        Console.WriteLine("==============================================");
+        Console.ResetColor();
+        Console.WriteLine($"1 - Registrar Entrada");
+        Console.WriteLine($"2 - Visualizar Entrada");
+        Console.WriteLine("S - Voltar para o início");
+        Console.WriteLine("==============================================");
+        Console.Write(">> ");
+        string? opcaoMenu = Console.ReadLine()?.ToUpper();
+
+        return opcaoMenu;
+    }
+
     public override void VisualizarTodos(bool deveExibirCabecalho)
     {
         Console.WriteLine
