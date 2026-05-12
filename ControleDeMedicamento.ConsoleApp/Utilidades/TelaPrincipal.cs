@@ -63,7 +63,7 @@ class TelaPrincipal
             return new TelaFuncionario("Funcionarios", repositorioFuncionario);
 
         else if (opcaoMenuPrincipal == "5")
-            return null;
+            return null; // arrumar esta parte ainda não esta acessando o estoque
 
 
         return null;
