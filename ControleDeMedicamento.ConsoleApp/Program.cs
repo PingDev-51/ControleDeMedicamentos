@@ -4,6 +4,8 @@ using ControleDeMedicamento.ConsoleApp.ModuloEstoque;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
+using ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
+using ControleDeMedicamento.ConsoleApp.ModuloMedicamento.Arquivo;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
@@ -23,13 +25,17 @@ catch (JsonException)
 
 IRepositorio<Fornecedor> repositorioFornecedor = new RepositorioFornecedoresEmArquivo(contexto);
 IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
+IRepositorio<Medicamento> repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
 IRepositorio<Funcionario> repositorioFuncionario = new RepositorioFuncionarios(contexto);
+
 RepositorioSaida repositorioSaida = new RepositorioSaida();
 TelaPaciente telaPaciente = new TelaPaciente("Pacientes", repositorioPaciente);
 
 TelaEstoque telaEstoque = new TelaEstoque(repositorioSaida, telaPaciente, repositorioPaciente);
 
-TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioFuncionario, telaEstoque);
+TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioMedicamento, repositorioFuncionario, telaEstoque);
+
+
 
 while (true)
 {
