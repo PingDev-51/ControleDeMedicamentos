@@ -8,7 +8,7 @@ using ListaDeCompra.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 
-public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
+public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
 {
     private IRepositorio<Saida> repositorioSaida;
     private IRepositorio<Paciente> repositorioPacientes;
@@ -22,7 +22,7 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
     }
 
 
-    public string? ObterOpcaoMenuEstoque()
+    public override string? ObterOpcaoMenu()
     {
 
         Console.Clear();
@@ -54,11 +54,10 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
 
         foreach (Saida s in saidas)
         {
-            Medicamento? m = s.Medicamentos;
             Console.WriteLine
             (
-                "{0, -15} | {1, -20}  |  {2, -20}",
-                s.Data.ToShortDateString(), s.Paciente.Nome, m?.Nome
+                "{0, -15} | {1, -20} | {2, -20}",
+                s.Data.ToShortDateString(), s.Paciente.Nome, s.Medicamentos?.Nome
             );
         }
 
@@ -111,7 +110,7 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
         string? idSelecionado;
         do
         {
-            Console.Write("Digite o ID da categoria em que deseja guardar o produto: ");
+            Console.Write("Digite o ID do paciente: ");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)
@@ -144,7 +143,7 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
         string? idSelecionado;
         do
         {
-            Console.Write("Digite o ID da categoria em que deseja guardar o produto: ");
+            Console.Write("Digite o ID do Medicamento: ");
             idSelecionado = Console.ReadLine();
 
             if (!string.IsNullOrWhiteSpace(idSelecionado) && idSelecionado.Length == 7)

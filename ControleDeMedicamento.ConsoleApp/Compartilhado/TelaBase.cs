@@ -101,13 +101,12 @@ public abstract class TelaBase<T> where T : EntidadeBase
             Console.ReadLine();
             Cadastrar();
         }
-        catch (Exception)
+        catch (Exception ex) // 'ex' captura o erro
         {
-            Console.WriteLine("Ocorreu um erro inesperado. Tente novamente");
+            // Acessando a mensagem de erro
+            Console.WriteLine($"Erro ocorrido: {ex.Message}");
             Console.WriteLine("Pressione ENTER para continuar..");
             Console.ReadLine();
-            Cadastrar();
-            return;
         }
 
     }

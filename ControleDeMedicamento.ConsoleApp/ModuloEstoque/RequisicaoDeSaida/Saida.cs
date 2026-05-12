@@ -21,7 +21,18 @@ public class Saida : EntidadeBase
 
     public override string[] Validar()
     {
-        throw new NotImplementedException();
+        string erros = string.Empty;
+
+        if (Data > DateTime.Now.Date)
+            erros += "A data deve conter informações validas;";
+
+        if (Paciente == null)
+            erros += "o campo Paciente deve ser preenchido;";
+
+        if (Medicamentos == null)
+            erros += "O cmapo Medicamento deve ser preenchido;";
+
+        return erros.Split(';', StringSplitOptions.RemoveEmptyEntries);
     }
 
     public override void AtualizarDados(EntidadeBase entidadeAtualizada)

@@ -1,8 +1,9 @@
 using System;
+using ListaDeCompra.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeSaida;
 
-public interface ITelaOpcoesEstoque
+public interface ITelaOpcoesEstoque : ITelaOpcoes
 {
     public string? ObterOpcaoMenuEstoque();
 }

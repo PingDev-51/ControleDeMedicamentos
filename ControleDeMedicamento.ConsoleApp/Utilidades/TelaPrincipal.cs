@@ -18,6 +18,8 @@ class TelaPrincipal
     private readonly IRepositorio<Medicamento> repositorioMedicamento;
     private readonly IRepositorio<Funcionario> repositorioFuncionario;
     private readonly IRepositorio<Saida> repositorioSaida;
+    private readonly TelaEstoque telaEstoque;
+
     public TelaPrincipal
     (
         IRepositorio<Fornecedor> repositorioFornecedor,
@@ -25,6 +27,7 @@ class TelaPrincipal
         IRepositorio<Medicamento> repositorioMedicamento,
         IRepositorio<Funcionario> repositorioFuncionario,
         IRepositorio<Saida> repositorioSaida
+
     )
     {
         this.repositorioFornecedor = repositorioFornecedor;
@@ -32,8 +35,8 @@ class TelaPrincipal
         this.repositorioMedicamento = repositorioMedicamento;
         this.repositorioFuncionario = repositorioFuncionario;
         this.repositorioSaida = repositorioSaida;
+        telaEstoque = new TelaEstoque(repositorioSaida, repositorioPaciente, repositorioMedicamento);
     }
-
     public ITelaOpcoes? ApresentarMenuOpcoesPrincipal()
     {
         Console.Clear();
@@ -63,8 +66,7 @@ class TelaPrincipal
             return new TelaFuncionario("Funcionarios", repositorioFuncionario);
 
         else if (opcaoMenuPrincipal == "5")
-            return null; // arrumar esta parte ainda não esta acessando o estoque
-
+            return telaEstoque.ApresentarMenuEstoque();
 
         return null;
     }

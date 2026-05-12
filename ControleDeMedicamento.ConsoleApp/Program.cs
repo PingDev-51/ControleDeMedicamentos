@@ -63,9 +63,9 @@ while (true)
             if (opcaoSubMenu == "S")
                 break;
         }
-        else
-        {
-            telaEstoque.ApresentarMenuEstoque();
-        }
+        //else
+       // {
+        //    telaEstoque.ApresentarMenuEstoque();
+        //}
     }
 }
