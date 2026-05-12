@@ -9,7 +9,7 @@ using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
-
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 class TelaPrincipal
 {
     //instaciar o repositorio de fornecedores aqui em baixo
@@ -17,22 +17,21 @@ class TelaPrincipal
     private readonly IRepositorio<Paciente> repositorioPaciente;
     private readonly IRepositorio<Medicamento> repositorioMedicamento;
     private readonly IRepositorio<Funcionario> repositorioFuncionario;
-    private readonly TelaEstoque telaEstoque;
-
+    private readonly IRepositorio<Saida> repositorioSaida;
     public TelaPrincipal
     (
         IRepositorio<Fornecedor> repositorioFornecedor,
         IRepositorio<Paciente> repositorioPaciente,
         IRepositorio<Medicamento> repositorioMedicamento,
         IRepositorio<Funcionario> repositorioFuncionario,
-        TelaEstoque telaEstoque
+        IRepositorio<Saida> repositorioSaida
     )
     {
         this.repositorioFornecedor = repositorioFornecedor;
         this.repositorioPaciente = repositorioPaciente;
         this.repositorioMedicamento = repositorioMedicamento;
         this.repositorioFuncionario = repositorioFuncionario;
-        this.telaEstoque = telaEstoque;
+        this.repositorioSaida = repositorioSaida;
     }
 
     public ITelaOpcoes? ApresentarMenuOpcoesPrincipal()
@@ -54,17 +53,18 @@ class TelaPrincipal
         if (opcaoMenuPrincipal == "1")
             return new TelaFornecedores("Fornecedores", repositorioFornecedor);
 
-        if (opcaoMenuPrincipal == "2")
+        else if (opcaoMenuPrincipal == "2")
             return new TelaPaciente("Pacientes", repositorioPaciente);
 
-        if (opcaoMenuPrincipal == "3")
+        else if (opcaoMenuPrincipal == "3")
             return new TelaMedicamento("Medicamento", repositorioMedicamento, repositorioFornecedor);
 
-        if (opcaoMenuPrincipal == "4")
+        else if (opcaoMenuPrincipal == "4")
             return new TelaFuncionario("Funcionarios", repositorioFuncionario);
 
-        if (opcaoMenuPrincipal == "5")
-            return telaEstoque;
+        else if (opcaoMenuPrincipal == "5")
+            return null;
+
 
         return null;
     }

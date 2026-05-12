@@ -1,30 +1,33 @@
 using System;
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeSaida;
+using ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque;
 
 
-public class TelaEstoque : ITelaOpcoes
+public class TelaEstoque
 {
-    public TelaSaida telaSaida;
 
-    public TelaEstoque(
-        RepositorioSaida repositorioSaida,
-        TelaPaciente telaPaciente,
-       IRepositorio<Paciente> repositorioPacientes
+    private readonly IRepositorio<Saida> repositorioSaida;
+    private readonly IRepositorio<Paciente> repositorioPaciente;
+    private readonly IRepositorio<Medicamento> repositorioMedicamento;
+    public TelaEstoque
+    (
+        IRepositorio<Saida> repositorioSaida,
+        IRepositorio<Paciente> repositorioPaciente,
+        IRepositorio<Medicamento> repositorioMedicamento
     )
     {
-        telaSaida = new TelaSaida(
-            repositorioSaida,
-            telaPaciente,
-            repositorioPacientes
-        );
+        this.repositorioSaida = repositorioSaida;
+        this.repositorioPaciente = repositorioPaciente;
+        this.repositorioMedicamento = repositorioMedicamento;
     }
 
-    public string? ObterOpcaoMenu()
+    public ITelaOpcoesEstoque? ApresentarMenuEstoque()
     {
         Console.Clear();
         Console.WriteLine("---------------------------------");
@@ -38,36 +41,14 @@ public class TelaEstoque : ITelaOpcoes
         string? opcaoMenuPrincipal = Console.ReadLine()?.ToUpper();
 
         if (opcaoMenuPrincipal == "1")
-            return null; //colocar a saída aqui
+            return null;
+        else if (opcaoMenuPrincipal == "2")
+            return new TelaSaida("Saida", repositorioSaida, repositorioPaciente, repositorioMedicamento);
 
-
-        if (opcaoMenuPrincipal == "2")
-            while (true)
-            {
-                string? opcao = telaSaida.ObterOpcaoMenu();
-
-                if (opcao == "S")
-                {
-                    Console.Clear();
-                    break;
-                }
-
-                switch (opcao)
-                {
-                    case "1":
-                        telaSaida.Registrar();
-                        break;
-
-                    case "2":
-                        telaSaida.VisualizarTodos();
-                        break;
-                }
-            }
-
-        if (opcaoMenuPrincipal == "S"){ // resolver de voltar para o menu principal
-            
-        }
-
-        return opcaoMenuPrincipal;
+        return null;
     }
+
+
+
+
 }

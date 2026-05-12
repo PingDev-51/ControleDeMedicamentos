@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
@@ -13,6 +14,11 @@ public class ContextoJson
     public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
     public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
     public List<Medicamento> Medicamento { get; set; } = new List<Medicamento>();
+
+    //embaixo ficara as propriedades do modulo de estoque
+    // public Entrada Entrada { get; set; }
+    public List<Saida> Saida { get; set; }
+
     private readonly string caminhoArquivo;
     public ContextoJson()
     {
@@ -57,5 +63,7 @@ public class ContextoJson
         this.Pacientes = contextoSalvo.Pacientes;
         this.Medicamento = contextoSalvo.Medicamento;
         this.Funcionarios = contextoSalvo.Funcionarios;
+        // this.Entrada = contextoSalvo.Entrada;
+        this.Saida = contextoSalvo.Saida;
     }
 }

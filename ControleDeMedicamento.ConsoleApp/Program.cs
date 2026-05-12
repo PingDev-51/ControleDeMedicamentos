@@ -2,6 +2,7 @@
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
 using ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
@@ -27,20 +28,15 @@ IRepositorio<Fornecedor> repositorioFornecedor = new RepositorioFornecedoresEmAr
 IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
 IRepositorio<Medicamento> repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
 IRepositorio<Funcionario> repositorioFuncionario = new RepositorioFuncionarios(contexto);
-
-RepositorioSaida repositorioSaida = new RepositorioSaida();
-TelaPaciente telaPaciente = new TelaPaciente("Pacientes", repositorioPaciente);
-
-TelaEstoque telaEstoque = new TelaEstoque(repositorioSaida, telaPaciente, repositorioPaciente);
-
-TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioMedicamento, repositorioFuncionario, telaEstoque);
+RepositorioSaida repositorioSaida = new RepositorioSaida(contexto);
 
 
+TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioMedicamento, repositorioFuncionario, repositorioSaida);
+TelaEstoque telaEstoque = new TelaEstoque(repositorioSaida, repositorioPaciente, repositorioMedicamento);
 
 while (true)
 {
     ITelaOpcoes? telaSelecionada = telaPrincipal.ApresentarMenuOpcoesPrincipal();
-
     if (telaSelecionada == null)
     {
         Console.Clear();
@@ -66,6 +62,10 @@ while (true)
                 telaCrud.VisualizarTodos(deveExibirCabecalho: true);
             if (opcaoSubMenu == "S")
                 break;
+        }
+        else
+        {
+            telaEstoque.ApresentarMenuEstoque();
         }
     }
 }

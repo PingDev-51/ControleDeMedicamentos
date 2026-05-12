@@ -20,10 +20,10 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
             ExibirCabecalho("Visualização de Pacientes");
 
         Console.WriteLine
-            (
-                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-                "Id", "Nome", "Descrição", "Quantidade", "Fornecedor"
-            );
+        (
+            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
+            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor"
+        );
 
         List<Medicamento> medicamentos = repositorio.SelecionarTodos();
 
@@ -31,10 +31,11 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
         {
             Fornecedor? f = m.Fornecedor;
 
-            Console.WriteLine(
-              "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-              m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome
-          );
+            Console.WriteLine
+            (
+                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
+                m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome
+            );
         }
 
         if (deveExibirCabecalho)
