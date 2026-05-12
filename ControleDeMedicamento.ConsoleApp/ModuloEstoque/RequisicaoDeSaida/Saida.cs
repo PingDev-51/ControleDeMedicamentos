@@ -9,8 +9,12 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 public class Saida : EntidadeBase
 {
     public DateTime Data { get; set; }
-    public Paciente Paciente { get; set; }
-    public Medicamento? Medicamentos { get; set; }
+    public Paciente Paciente { get; set; } = null!;
+    public Medicamento? Medicamentos { get; set; } = null!;
+
+    public Saida()
+    {
+    }
 
     public Saida(DateTime data, Paciente paciente, Medicamento? medicamentos)
     {

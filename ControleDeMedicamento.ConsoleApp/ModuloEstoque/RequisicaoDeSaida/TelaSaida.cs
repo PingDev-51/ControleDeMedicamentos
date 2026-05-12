@@ -85,7 +85,6 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
         if (medicamentoSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este medicamento");
 
-
         return new Saida(data, pacienteSelecionado, medicamentoSelecionado);
     }
 

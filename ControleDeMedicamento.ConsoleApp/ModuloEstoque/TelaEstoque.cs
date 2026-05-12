@@ -26,8 +26,7 @@ public class TelaEstoque
         this.repositorioPaciente = repositorioPaciente;
         this.repositorioMedicamento = repositorioMedicamento;
     }
-
-    public ITelaOpcoes ApresentarMenuEstoque()
+    public ITelaOpcoes? ApresentarMenuEstoque()
     {
         Console.Clear();
         Console.WriteLine("---------------------------------");
