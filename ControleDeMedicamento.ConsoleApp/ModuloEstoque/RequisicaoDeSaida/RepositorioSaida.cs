@@ -13,6 +13,6 @@ public class RepositorioSaida : RepositorioBaseEmArquivo<Saida>, IRepositorio<Sa
 
     protected override List<Saida> CarregarRegistros()
     {
-        return contexto.Saida;
+        return contexto.Saidas;
     }
 }

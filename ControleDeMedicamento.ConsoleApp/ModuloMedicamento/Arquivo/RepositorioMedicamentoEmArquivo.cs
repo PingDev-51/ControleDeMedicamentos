@@ -12,6 +12,6 @@ public class RepositorioMedicamentoEmArquivo : RepositorioBaseEmArquivo<Medicame
 
     protected override List<Medicamento> CarregarRegistros()
     {
-        return contexto.Medicamento;
+        return contexto.Medicamentos;
     }
 }

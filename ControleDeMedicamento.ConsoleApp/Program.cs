@@ -32,7 +32,7 @@ RepositorioSaida repositorioSaida = new RepositorioSaida(contexto);
 
 
 TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioMedicamento, repositorioFuncionario, repositorioSaida);
-TelaEstoque telaEstoque = new TelaEstoque(repositorioSaida, repositorioPaciente, repositorioMedicamento);
+// TelaEstoque telaEstoque = new TelaEstoque(repositorioSaida, repositorioPaciente, repositorioMedicamento);
 
 while (true)
 {
@@ -63,9 +63,7 @@ while (true)
             if (opcaoSubMenu == "S")
                 break;
         }
-        //else
-       // {
-        //    telaEstoque.ApresentarMenuEstoque();
-        //}
     }
+
+
 }

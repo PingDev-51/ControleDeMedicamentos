@@ -104,7 +104,7 @@ public abstract class TelaBase<T> where T : EntidadeBase
         catch (Exception ex) // 'ex' captura o erro
         {
             // Acessando a mensagem de erro
-            Console.WriteLine($"Erro ocorrido: {ex.Message}");
+            Console.WriteLine(ex);
             Console.WriteLine("Pressione ENTER para continuar..");
             Console.ReadLine();
         }
@@ -235,7 +235,7 @@ public abstract class TelaBase<T> where T : EntidadeBase
 
     protected void ExibirCabecalho(string titulo)
     {
-        Console.Clear();
+        //Console.Clear();
         Console.WriteLine("==============================================");
         Console.WriteLine($"Gestão de {nomeEntidade}");
         Console.WriteLine("==============================================");

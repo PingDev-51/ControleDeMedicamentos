@@ -10,14 +10,13 @@ namespace ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
 
 public class ContextoJson
 {
-    public List<Fornecedor> Fornecedor { get; set; } = new List<Fornecedor>();
+    public List<Fornecedor> Fornecedores { get; set; } = new List<Fornecedor>();
     public List<Paciente> Pacientes { get; set; } = new List<Paciente>();
     public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
-    public List<Medicamento> Medicamento { get; set; } = new List<Medicamento>();
+    public List<Medicamento> Medicamentos { get; set; } = new List<Medicamento>();
+    public List<Saida> Saidas { get; set; } = new List<Saida>();
 
-    //embaixo ficara as propriedades do modulo de estoque
-    // public Entrada Entrada { get; set; }
-    public List<Saida> Saida { get; set; }
+
 
     private readonly string caminhoArquivo;
     public ContextoJson()
@@ -59,11 +58,11 @@ public class ContextoJson
         if (contextoSalvo == null)
             return;
 
-        this.Fornecedor = contextoSalvo.Fornecedor;
+        this.Fornecedores = contextoSalvo.Fornecedores;
         this.Pacientes = contextoSalvo.Pacientes;
-        this.Medicamento = contextoSalvo.Medicamento;
+        this.Medicamentos = contextoSalvo.Medicamentos;
         this.Funcionarios = contextoSalvo.Funcionarios;
         // this.Entrada = contextoSalvo.Entrada;
-        this.Saida = contextoSalvo.Saida;
+        this.Saidas = contextoSalvo.Saidas;
     }
 }
