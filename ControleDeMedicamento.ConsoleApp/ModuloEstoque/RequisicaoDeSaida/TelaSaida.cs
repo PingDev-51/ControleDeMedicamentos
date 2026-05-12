@@ -8,7 +8,7 @@ using ListaDeCompra.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 
-public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
+public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
 {
     private IRepositorio<Saida> repositorioSaida;
     private IRepositorio<Paciente> repositorioPacientes;
@@ -22,7 +22,7 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
     }
 
 
-    public string? ObterOpcaoMenuEstoque()
+    public override string? ObterOpcaoMenu()
     {
 
         Console.Clear();
@@ -85,7 +85,6 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoesEstoque
 
         if (medicamentoSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este medicamento");
-
 
         return new Saida(data, pacienteSelecionado, medicamentoSelecionado);
     }
