@@ -16,9 +16,9 @@ public class Saida : EntidadeBase
     {
     }
 
-    public Saida(DateTime data, Paciente paciente, Medicamento? medicamentos)
+    public Saida(Paciente paciente, Medicamento? medicamentos)
     {
-        Data = data;
+        Data = DateTime.Now;
         Paciente = paciente;
         Medicamentos = medicamentos;
     }

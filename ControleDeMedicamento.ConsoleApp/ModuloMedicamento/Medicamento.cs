@@ -1,4 +1,5 @@
 using System;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 
@@ -6,9 +7,10 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
 
 public class Medicamento : EntidadeBase
 {
+    public Entrada Entrada { get; set; } = null!;
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
-    public int QuantidadeEmEstoque { get; set; }
+    public uint QuantidadeEmEstoque { get; set; }
     public Fornecedor? Fornecedor { get; set; }
 
     public Medicamento()
@@ -16,7 +18,7 @@ public class Medicamento : EntidadeBase
 
     }
 
-    public Medicamento(string nome, string descricao, int quantidadeEmEstoque, Fornecedor fornecedor)
+    public Medicamento(string nome, string descricao, uint quantidadeEmEstoque, Fornecedor fornecedor)
     {
         Nome = nome;
         Descricao = descricao;

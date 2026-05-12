@@ -30,9 +30,7 @@ IRepositorio<Medicamento> repositorioMedicamento = new RepositorioMedicamentoEmA
 IRepositorio<Funcionario> repositorioFuncionario = new RepositorioFuncionarios(contexto);
 RepositorioSaida repositorioSaida = new RepositorioSaida(contexto);
 
-
 TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioMedicamento, repositorioFuncionario, repositorioSaida);
-// TelaEstoque telaEstoque = new TelaEstoque(repositorioSaida, repositorioPaciente, repositorioMedicamento);
 
 while (true)
 {
@@ -47,6 +45,17 @@ while (true)
     {
         string? opcaoSubMenu = telaSelecionada.ObterOpcaoMenu();
 
+        if (opcaoSubMenu == "S")
+            break;
+        if (telaSelecionada is TelaEstoque telaEstoque)
+        {
+            // if (opcaoSubMenu == "1") 
+            //telaEstoque.
+
+            if (opcaoSubMenu == "2")
+                telaSelecionada = new TelaSaida("Saida", repositorioSaida, repositorioPaciente, repositorioMedicamento);
+        }
+
         if (telaSelecionada is ITelaCrud telaCrud)
         {
             if (opcaoSubMenu == "1")
@@ -60,10 +69,6 @@ while (true)
 
             else if (opcaoSubMenu == "4")
                 telaCrud.VisualizarTodos(deveExibirCabecalho: true);
-            if (opcaoSubMenu == "S")
-                break;
         }
     }
-
-
 }

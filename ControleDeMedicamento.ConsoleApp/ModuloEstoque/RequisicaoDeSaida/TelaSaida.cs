@@ -68,9 +68,6 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
 
     protected override Saida ObterDadosCadastrais()
     {
-        Console.Write("Digite a Data da Saída: ");
-        DateTime data = Convert.ToDateTime(Console.ReadLine());
-
         string idSelecionadoDoPaciente = SelecionarPaciente();
 
         Paciente? pacienteSelecionado = (Paciente?)repositorioPacientes.SelecionarPorId(idSelecionadoDoPaciente);
@@ -85,7 +82,7 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
         if (medicamentoSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este medicamento");
 
-        return new Saida(data, pacienteSelecionado, medicamentoSelecionado);
+        return new Saida(pacienteSelecionado, medicamentoSelecionado);
     }
 
     public string SelecionarPaciente()

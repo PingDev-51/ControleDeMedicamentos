@@ -9,7 +9,7 @@ using ListaDeCompra.ConsoleApp.Compartilhado;
 namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque;
 
 
-public class TelaEstoque
+public class TelaEstoque : ITelaOpcoes
 {
 
     private readonly IRepositorio<Saida> repositorioSaida;
@@ -26,7 +26,7 @@ public class TelaEstoque
         this.repositorioPaciente = repositorioPaciente;
         this.repositorioMedicamento = repositorioMedicamento;
     }
-    public ITelaOpcoes? ApresentarMenuEstoque()
+    public string? ObterOpcaoMenu()
     {
         Console.Clear();
         Console.WriteLine("---------------------------------");
@@ -39,11 +39,11 @@ public class TelaEstoque
         Console.Write(">> ");
         string? opcaoMenuPrincipal = Console.ReadLine()?.ToUpper();
 
-        if (opcaoMenuPrincipal == "1")
-            return null;
-        else if (opcaoMenuPrincipal == "2")
-            return new TelaSaida("Saida", repositorioSaida, repositorioPaciente, repositorioMedicamento);
+        // if (opcaoMenuPrincipal == "1")
+        // return null;
+        // else if (opcaoMenuPrincipal == "2")
+        // return new TelaSaida("Saida", repositorioSaida, repositorioPaciente, repositorioMedicamento);
 
-        return null;
+        return opcaoMenuPrincipal;
     }
 }

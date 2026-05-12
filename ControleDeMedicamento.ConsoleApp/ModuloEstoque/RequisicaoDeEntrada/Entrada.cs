@@ -11,16 +11,16 @@ public class Entrada : EntidadeBase
     public DateTime DataDeEntrada { get; set; }
     public Medicamento Medicamento { get; set; } = null!;
     public Funcionario Funcionario { get; set; } = null!;
-    public int Quantidade { get; set; }
+    public uint Quantidade { get; set; }
 
     public Entrada()
     {
 
     }
 
-    public Entrada(DateTime dataDeEntrada, Medicamento medicamento, Funcionario funcionario, int quantidade)
+    public Entrada(Medicamento medicamento, Funcionario funcionario, uint quantidade)
     {
-        DataDeEntrada = dataDeEntrada;
+        DataDeEntrada = DateTime.Now;
         Medicamento = medicamento;
         Funcionario = funcionario;
         Quantidade = quantidade;
@@ -28,7 +28,16 @@ public class Entrada : EntidadeBase
 
     public override string[] Validar()
     {
-        throw new NotImplementedException();
+        string erros = string.Empty;
+
+        if (Medicamento == null)
+            erros += "O campo Medicamentos precisa ser preenchido;";
+        if (Funcionario == null)
+            erros += "O campo Funcionario precisa ser preenchido;";
+        if (Quantidade < 0)
+            erros += "O campo Quantidade  não pode ser um valor negativo;";
+
+        return erros.Split(';', StringSplitOptions.RemoveEmptyEntries);
     }
 
     public override void AtualizarDados(EntidadeBase entidadeAtualizada)

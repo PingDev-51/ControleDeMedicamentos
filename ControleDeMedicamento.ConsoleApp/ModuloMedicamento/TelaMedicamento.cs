@@ -53,7 +53,7 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
         Console.Write("Digite o Descrição do medicamento: ");
         string descricao = Console.ReadLine() ?? string.Empty;
 
-        int quantidadeEmEstoque = 0;
+        uint quantidadeEmEstoque = 0;
 
         string idSelecionado = SelecionarFornecedor();
 
