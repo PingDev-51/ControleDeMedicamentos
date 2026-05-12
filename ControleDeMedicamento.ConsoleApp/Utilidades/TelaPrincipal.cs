@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
+using ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 class TelaPrincipal
@@ -13,13 +14,20 @@ class TelaPrincipal
 
     private readonly IRepositorio<Fornecedor> repositorioFornecedor;
     private readonly IRepositorio<Paciente> repositorioPaciente;
+    private readonly IRepositorio<Medicamento> repositorioMedicamento;
     private readonly IRepositorio<Funcionario> repositorioFuncionario;
 
-    public TelaPrincipal(IRepositorio<Fornecedor> repositorioFornecedor, IRepositorio<Paciente> repositorioPaciente, IRepositorio<Funcionario> repositorioFuncionario)
+    public TelaPrincipal
+    (
+        IRepositorio<Fornecedor> repositorioFornecedor,
+        IRepositorio<Paciente> repositorioPaciente,
+        IRepositorio<Medicamento> repositorioMedicamento,
+        IRepositorio<Funcionario> repositorioFuncionario
+    )
     {
         this.repositorioFornecedor = repositorioFornecedor;
         this.repositorioPaciente = repositorioPaciente;
-        //medicamentos
+        this.repositorioMedicamento = repositorioMedicamento;
         this.repositorioFuncionario = repositorioFuncionario;
     }
 
@@ -46,7 +54,7 @@ class TelaPrincipal
             return new TelaPaciente("Pacientes", repositorioPaciente);
 
         if (opcaoMenuPrincipal == "3")
-            return null; // passar modulo de pacientes aqui
+            return new TelaMedicamento("Medicamento", repositorioMedicamento, repositorioFornecedor);
 
         if (opcaoMenuPrincipal == "4")
             return new TelaFuncionario("Funcinarios", repositorioFuncionario);

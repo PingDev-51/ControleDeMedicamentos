@@ -21,17 +21,19 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
 
         Console.WriteLine
             (
-                "{0, -7} | {1, -20} | {2, -15} | {3, -15}",
-                "Id", "Nome", "Telefone", "CNPJ"
+                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
+                "Id", "Nome", "Descrição", "Quantidade", "Fornecedor"
             );
 
         List<Medicamento> medicamentos = repositorio.SelecionarTodos();
 
         foreach (Medicamento m in medicamentos)
         {
+            Fornecedor? f = m.Fornecedor;
+
             Console.WriteLine(
               "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-              m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, m.Fornecedor
+              m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome
           );
         }
 
@@ -44,10 +46,10 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
 
     protected override Medicamento ObterDadosCadastrais()
     {
-        Console.Write("Digite o nome do medicamento");
+        Console.Write("Digite o nome do medicamento: ");
         string nome = Console.ReadLine() ?? string.Empty;
 
-        Console.Write("Digite o nome do medicamento");
+        Console.Write("Digite o Descrição do medicamento: ");
         string descricao = Console.ReadLine() ?? string.Empty;
 
         int quantidadeEmEstoque = 0;

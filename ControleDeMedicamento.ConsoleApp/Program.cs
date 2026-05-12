@@ -2,6 +2,8 @@
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
+using ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
+using ControleDeMedicamento.ConsoleApp.ModuloMedicamento.Arquivo;
 using ControleDeMedicamento.ConsoleApp.ModuloPacientes;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 using ListaDeCompra.ConsoleApp.Compartilhado.Arquivos;
@@ -21,8 +23,9 @@ catch (JsonException)
 IRepositorio<Fornecedor> repositorioFornecedor = new RepositorioFornecedoresEmArquivo(contexto);
 IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
 IRepositorio<Funcionario> repositorioFuncionario = new RepositorioFuncionarios(contexto);
+IRepositorio<Medicamento> repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
 
-TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioFuncionario);
+TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioMedicamento, repositorioFuncionario);
 
 while (true)
 {
