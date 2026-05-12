@@ -54,6 +54,19 @@ while (true)
 
             if (opcaoSubMenu == "2")
                 telaSelecionada = new TelaSaida("Saida", repositorioSaida, repositorioPaciente, repositorioMedicamento);
+
+            continue;
+        }
+
+        if (telaSelecionada is TelaSaida telaSaida)
+        {
+            if (opcaoSubMenu == "1")
+                telaSaida.Cadastrar();
+
+            else if (opcaoSubMenu == "2")
+                telaSaida.VisualizarTodos(deveExibirCabecalho: false);
+
+            continue;
         }
 
         if (telaSelecionada is ITelaCrud telaCrud)

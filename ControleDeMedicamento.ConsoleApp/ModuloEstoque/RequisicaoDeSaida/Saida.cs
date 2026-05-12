@@ -8,7 +8,7 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 
 public class Saida : EntidadeBase
 {
-    public DateTime Data { get; set; }
+    public DateTime Data { get; set; } = DateTime.Now;
     public Paciente Paciente { get; set; } = null!;
     public Medicamento? Medicamentos { get; set; } = null!;
 
@@ -26,9 +26,6 @@ public class Saida : EntidadeBase
     public override string[] Validar()
     {
         string erros = string.Empty;
-
-        if (Data > DateTime.Now.Date)
-            erros += "A data deve conter informações validas;";
 
         if (Paciente == null)
             erros += "o campo Paciente deve ser preenchido;";

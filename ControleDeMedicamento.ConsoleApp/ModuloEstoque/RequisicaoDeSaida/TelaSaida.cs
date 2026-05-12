@@ -77,7 +77,7 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
 
         string idSelecionadoDoMedicamento = SelecionarMedicamento();
 
-        Medicamento? medicamentoSelecionado = (Medicamento?)repositorioMedicamento.SelecionarPorId(idSelecionadoDoMedicamento);
+        Medicamento? medicamentoSelecionado = repositorioMedicamento.SelecionarPorId(idSelecionadoDoMedicamento);
 
         if (medicamentoSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este medicamento");
