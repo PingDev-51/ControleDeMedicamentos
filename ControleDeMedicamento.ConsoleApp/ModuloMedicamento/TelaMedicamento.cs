@@ -1,5 +1,6 @@
 using System;
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 
@@ -8,6 +9,7 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
 public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
 {
     private IRepositorio<Fornecedor> repositorioFornecedor;
+
 
     public TelaMedicamento(string nomeEntidade, IRepositorio<Medicamento> repositorio, IRepositorio<Fornecedor> repositorioFornecedor) : base(nomeEntidade, repositorio)
     {
@@ -21,8 +23,8 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
 
         Console.WriteLine
         (
-            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
-            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Quantidade"
+            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
+            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor"
         );
 
         List<Medicamento> medicamentos = repositorio.SelecionarTodos();
@@ -33,8 +35,8 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
 
             Console.WriteLine
             (
-                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
-                m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome, m.QuantidadeEmEstoque
+                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
+                m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome
             );
         }
 
@@ -95,5 +97,10 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
         } while (true);
 
         return idSelecionado;
+    }
+
+    public void QuantidadeEntrada()
+    {
+
     }
 }

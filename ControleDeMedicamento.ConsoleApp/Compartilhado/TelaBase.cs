@@ -45,7 +45,7 @@ public abstract class TelaBase<T> where T : EntidadeBase
 
     public void Cadastrar()
     {
-        Console.Clear();
+        //Console.Clear();
         ExibirCabecalho($"Cadastro de {nomeEntidade}");
 
         try

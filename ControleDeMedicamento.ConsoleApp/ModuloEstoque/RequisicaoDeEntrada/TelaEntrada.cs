@@ -28,7 +28,7 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
     public override string? ObterOpcaoMenu()
     {
 
-        Console.Clear();
+        //Console.Clear();
         Console.WriteLine("==============================================");
         Console.WriteLine($"Gestão de Estoque (Entrada)");
         Console.WriteLine("==============================================");
@@ -64,6 +64,10 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
                 e.DataDeEntrada.ToShortDateString(), m.Nome, f.Nome, e.Quantidade
             );
         }
+
+        Console.WriteLine("========================================");
+        Console.Write("Digite ENTER para continuar...");
+        Console.ReadLine();
     }
 
     protected override Entrada ObterDadosCadastrais()
@@ -156,4 +160,5 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
 
         return idSelecionado;
     }
+
 }

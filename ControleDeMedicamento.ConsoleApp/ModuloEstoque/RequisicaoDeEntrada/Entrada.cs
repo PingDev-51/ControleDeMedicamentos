@@ -13,7 +13,6 @@ public class Entrada : EntidadeBase
     public Medicamento Medicamento { get; set; } = null!;
     public Funcionario Funcionario { get; set; } = null!;
     public uint Quantidade { get; set; }
-
     public Entrada()
     {
 

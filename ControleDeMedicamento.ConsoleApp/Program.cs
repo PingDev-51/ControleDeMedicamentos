@@ -40,7 +40,7 @@ while (true)
     ITelaOpcoes? telaSelecionada = telaPrincipal.ApresentarMenuOpcoesPrincipal();
     if (telaSelecionada == null)
     {
-        Console.Clear();
+        //Console.Clear();
         break;
     }
 
@@ -68,6 +68,17 @@ while (true)
 
             else if (opcaoSubMenu == "2")
                 telaSaida.VisualizarTodos(deveExibirCabecalho: false);
+
+            continue;
+        }
+
+        if (telaSelecionada is TelaEntrada telaEntrada)
+        {
+            if (opcaoSubMenu == "1")
+                telaEntrada.Cadastrar();
+
+            else if (opcaoSubMenu == "2")
+                telaEntrada.VisualizarTodos(deveExibirCabecalho: false);
 
             continue;
         }

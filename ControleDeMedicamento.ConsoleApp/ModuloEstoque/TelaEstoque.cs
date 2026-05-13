@@ -28,7 +28,7 @@ public class TelaEstoque : ITelaOpcoes
     }
     public string? ObterOpcaoMenu()
     {
-        Console.Clear();
+        //Console.Clear();
         Console.WriteLine("---------------------------------");
         Console.WriteLine("Gerenciamento De Estoque");
         Console.WriteLine("---------------------------------");

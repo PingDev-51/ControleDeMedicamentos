@@ -1,4 +1,5 @@
 using System;
+using System.Dynamic;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
@@ -19,10 +20,10 @@ public class Medicamento : EntidadeBase
             uint quantidadeEmEstoque = 0;
 
             if (TipoRequisicao == ModuloEstoque.Requisicao.Entrada)
-                quantidadeEmEstoque += Entrada.Quantidade;
+                return quantidadeEmEstoque += Entrada.Quantidade;
 
             else if (TipoRequisicao == ModuloEstoque.Requisicao.Saida)
-                quantidadeEmEstoque -= Saida.QuantidadeSaida;
+                return quantidadeEmEstoque -= Saida.QuantidadeSaida;
 
             return quantidadeEmEstoque;
 

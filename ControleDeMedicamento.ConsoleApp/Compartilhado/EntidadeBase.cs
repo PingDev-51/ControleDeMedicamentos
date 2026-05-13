@@ -7,7 +7,7 @@ namespace ListaDeCompra.ConsoleApp.Compartilhado;
 public abstract class EntidadeBase : Object
 {
     public string Id { get; set; } = string.Empty;
-    public Requisicao TipoRequisicao { get; set; } = Requisicao.Nulo;
+    public Requisicao TipoRequisicao { get; set; }
 
     public EntidadeBase()
     {
