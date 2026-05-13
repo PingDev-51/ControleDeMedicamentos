@@ -13,27 +13,12 @@ public class Medicamento : EntidadeBase
     public Saida Saida { get; set; } = null!;
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
-    public uint QuantidadeEmEstoque
-    {
-        get
-        {
-            uint quantidadeEmEstoque = 0;
+    public int QuantidadeEmEstoque {get; set;}
 
-            if (TipoRequisicao == ModuloEstoque.Requisicao.Entrada)
-                return quantidadeEmEstoque += Entrada.Quantidade;
-
-            else if (TipoRequisicao == ModuloEstoque.Requisicao.Saida)
-                return quantidadeEmEstoque -= Saida.QuantidadeSaida;
-
-            return quantidadeEmEstoque;
-
-        }
-    }
     public Fornecedor? Fornecedor { get; set; }
 
     public Medicamento()
     {
-
     }
 
     public Medicamento(string nome, string descricao, Fornecedor fornecedor)

@@ -12,19 +12,18 @@ public class Entrada : EntidadeBase
     public DateTime DataDeEntrada { get; set; }
     public Medicamento Medicamento { get; set; } = null!;
     public Funcionario Funcionario { get; set; } = null!;
-    public uint Quantidade { get; set; }
+    public int Quantidade { get; set; }
     public Entrada()
     {
 
     }
 
-    public Entrada(Medicamento medicamento, Funcionario funcionario, uint quantidade, Requisicao tipoRequisicao)
+    public Entrada(Medicamento medicamento, Funcionario funcionario, int quantidade)
     {
         DataDeEntrada = DateTime.Now;
         Medicamento = medicamento;
         Funcionario = funcionario;
         Quantidade = quantidade;
-        TipoRequisicao = tipoRequisicao;
     }
 
     public override string[] Validar()

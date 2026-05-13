@@ -11,13 +11,13 @@ public class Saida : EntidadeBase
     public DateTime Data { get; set; } = DateTime.Now;
     public Paciente Paciente { get; set; } = null!;
     public Medicamento? Medicamentos { get; set; } = null!;
-    public uint QuantidadeSaida { get; set; }
+    public int QuantidadeSaida { get; set; }
 
     public Saida()
     {
     }
 
-    public Saida(Paciente paciente, Medicamento? medicamentos, Requisicao tipoRequisicao, uint quantidadeSaida)
+    public Saida(Paciente paciente, Medicamento? medicamentos, Requisicao tipoRequisicao, int quantidadeSaida)
     {
         Data = DateTime.Now;
         Paciente = paciente;

@@ -28,7 +28,7 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
     public override string? ObterOpcaoMenu()
     {
 
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("==============================================");
         Console.WriteLine($"Gestão de Estoque (Entrada)");
         Console.WriteLine("==============================================");
@@ -73,22 +73,23 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
     protected override Entrada ObterDadosCadastrais()
     {
         string idSelecionadoDoMedicamento = SelecionarMedicamento();
-        Medicamento? medicamentoSelecionado = (Medicamento?)repositorioMedicamento.SelecionarPorId(idSelecionadoDoMedicamento);
+        Medicamento? medicamentoSelecionado = repositorioMedicamento.SelecionarPorId(idSelecionadoDoMedicamento);
 
         if (medicamentoSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este medicamento..");
 
         Console.Write("Digite a quantidade de medicamentos: ");
-        uint quantidade = Convert.ToUInt32(Console.ReadLine());
+        int quantidade = Convert.ToInt32(Console.ReadLine());
 
         string idSelecionadoDoFuncionario = SelecionarFuncionario();
-        Funcionario? funcionarioSelecionado = (Funcionario?)repositorioFuncionario.SelecionarPorId(idSelecionadoDoFuncionario);
+        Funcionario? funcionarioSelecionado = repositorioFuncionario.SelecionarPorId(idSelecionadoDoFuncionario);
 
         if (funcionarioSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este funcionario..");
 
+        medicamentoSelecionado.QuantidadeEmEstoque += quantidade;
 
-        return new Entrada(medicamentoSelecionado, funcionarioSelecionado, quantidade, Requisicao.Entrada);
+        return new Entrada(medicamentoSelecionado, funcionarioSelecionado, quantidade);
     }
 
     public string SelecionarMedicamento()

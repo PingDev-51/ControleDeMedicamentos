@@ -40,7 +40,7 @@ while (true)
     ITelaOpcoes? telaSelecionada = telaPrincipal.ApresentarMenuOpcoesPrincipal();
     if (telaSelecionada == null)
     {
-        //Console.Clear();
+        Console.Clear();
         break;
     }
 
