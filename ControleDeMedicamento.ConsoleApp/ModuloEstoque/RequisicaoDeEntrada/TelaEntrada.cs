@@ -25,6 +25,23 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
         this.repositorioFuncionario = repositorioFuncionario;
     }
 
+    public override string? ObterOpcaoMenu()
+    {
+
+        Console.Clear();
+        Console.WriteLine("==============================================");
+        Console.WriteLine("Gestão de Estoque (Entrada)");
+        Console.WriteLine("==============================================");
+        Console.WriteLine($"1 - Registrar Entrada");
+        Console.WriteLine($"2 - Visualizar Entrada");
+        Console.WriteLine("S - Voltar para o Entrada");
+        Console.WriteLine("==============================================");
+        Console.Write(">> ");
+        string? opcaoMenu = Console.ReadLine()?.ToUpper();
+
+        return opcaoMenu;
+    }
+
     public override void VisualizarTodos(bool deveExibirCabecalho)
     {
         Console.WriteLine
@@ -59,7 +76,6 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
         Console.Write("Digite a quantidade de medicamentos: ");
         uint quantidade = Convert.ToUInt32(Console.ReadLine());
 
-
         string idSelecionadoDoFuncionario = SelecionarFuncionario();
         Funcionario? funcionarioSelecionado = (Funcionario?)repositorioFuncionario.SelecionarPorId(idSelecionadoDoFuncionario);
 
@@ -67,15 +83,15 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
             throw new NullReferenceException("Não foi possivel selecionar este funcionario..");
 
 
-        return new Entrada(medicamentoSelecionado, funcionarioSelecionado, quantidade);
+        return new Entrada(medicamentoSelecionado, funcionarioSelecionado, quantidade, Requisicao.Entrada);
     }
 
     public string SelecionarMedicamento()
     {
         Console.WriteLine
         (
-            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor"
+            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
+            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Quantidade"
         );
 
         List<Medicamento> medicamentos = repositorioMedicamento.SelecionarTodos();
@@ -84,10 +100,11 @@ public class TelaEntrada : TelaBase<Entrada>, ITelaCrud, ITelaOpcoes
         {
             Fornecedor? f = m.Fornecedor;
 
-            Console.WriteLine(
-              "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-              m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome
-          );
+            Console.WriteLine
+            (
+                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
+                m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome, m.QuantidadeEmEstoque
+            );
         }
 
         Console.WriteLine("Escolha o medicamento que deseja.");

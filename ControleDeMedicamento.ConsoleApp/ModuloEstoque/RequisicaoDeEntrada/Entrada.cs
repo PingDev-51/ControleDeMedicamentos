@@ -5,6 +5,7 @@ using ListaDeCompra.ConsoleApp.Compartilhado;
 
 namespace ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada;
 
+
 public class Entrada : EntidadeBase
 {
 
@@ -18,12 +19,13 @@ public class Entrada : EntidadeBase
 
     }
 
-    public Entrada(Medicamento medicamento, Funcionario funcionario, uint quantidade)
+    public Entrada(Medicamento medicamento, Funcionario funcionario, uint quantidade, Requisicao tipoRequisicao)
     {
         DataDeEntrada = DateTime.Now;
         Medicamento = medicamento;
         Funcionario = funcionario;
         Quantidade = quantidade;
+        TipoRequisicao = tipoRequisicao;
     }
 
     public override string[] Validar()
