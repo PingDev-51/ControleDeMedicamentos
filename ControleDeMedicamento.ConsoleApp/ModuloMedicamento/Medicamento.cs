@@ -1,5 +1,6 @@
 using System;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ListaDeCompra.ConsoleApp.Compartilhado;
 
@@ -8,9 +9,25 @@ namespace ControleDeMedicamento.ConsoleApp.ModuloMedicamento;
 public class Medicamento : EntidadeBase
 {
     public Entrada Entrada { get; set; } = null!;
+    public Saida Saida { get; set; } = null!;
     public string Nome { get; set; } = string.Empty;
     public string Descricao { get; set; } = string.Empty;
-    public uint QuantidadeEmEstoque { get; set; }
+    public uint QuantidadeEmEstoque
+    {
+        get
+        {
+            uint quantidadeEmEstoque = 0;
+
+            if (TipoRequisicao == ModuloEstoque.Requisicao.Entrada)
+                quantidadeEmEstoque += Entrada.Quantidade;
+
+            else if (TipoRequisicao == ModuloEstoque.Requisicao.Saida)
+                quantidadeEmEstoque -= Saida.QuantidadeSaida;
+
+            return quantidadeEmEstoque;
+
+        }
+    }
     public Fornecedor? Fornecedor { get; set; }
 
     public Medicamento()
@@ -18,11 +35,10 @@ public class Medicamento : EntidadeBase
 
     }
 
-    public Medicamento(string nome, string descricao, uint quantidadeEmEstoque, Fornecedor fornecedor)
+    public Medicamento(string nome, string descricao, Fornecedor fornecedor)
     {
         Nome = nome;
         Descricao = descricao;
-        QuantidadeEmEstoque = quantidadeEmEstoque;
         Fornecedor = fornecedor;
     }
 
@@ -32,7 +48,6 @@ public class Medicamento : EntidadeBase
 
         Nome = medicamentoAtualizado.Nome;
         Descricao = medicamentoAtualizado.Descricao;
-        QuantidadeEmEstoque = medicamentoAtualizado.QuantidadeEmEstoque;
         Fornecedor = medicamentoAtualizado.Fornecedor;
     }
 

@@ -17,12 +17,12 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
     public override void VisualizarTodos(bool deveExibirCabecalho)
     {
         if (deveExibirCabecalho)
-            ExibirCabecalho("Visualização de Pacientes");
+            ExibirCabecalho("Visualização de Medicamento");
 
         Console.WriteLine
         (
-            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor"
+            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
+            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Quantidade"
         );
 
         List<Medicamento> medicamentos = repositorio.SelecionarTodos();
@@ -33,8 +33,8 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
 
             Console.WriteLine
             (
-                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-                m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome
+                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
+                m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome, m.QuantidadeEmEstoque
             );
         }
 
@@ -53,8 +53,6 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
         Console.Write("Digite o Descrição do medicamento: ");
         string descricao = Console.ReadLine() ?? string.Empty;
 
-        uint quantidadeEmEstoque = 0;
-
         string idSelecionado = SelecionarFornecedor();
 
         Fornecedor? fornecedorSelecionado = (Fornecedor?)repositorioFornecedor.SelecionarPorId(idSelecionado);
@@ -62,7 +60,7 @@ public class TelaMedicamento : TelaBase<Medicamento>, ITelaOpcoes, ITelaCrud
         if (fornecedorSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este fornecedor.");
 
-        return new Medicamento(nome, descricao, quantidadeEmEstoque, fornecedorSelecionado);
+        return new Medicamento(nome, descricao, fornecedorSelecionado);
     }
 
     public string SelecionarFornecedor()

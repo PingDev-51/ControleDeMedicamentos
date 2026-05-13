@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
 using ControleDeMedicamento.ConsoleApp.ModuloFuncionarios;
@@ -15,6 +16,7 @@ public class ContextoJson
     public List<Funcionario> Funcionarios { get; set; } = new List<Funcionario>();
     public List<Medicamento> Medicamentos { get; set; } = new List<Medicamento>();
     public List<Saida> Saidas { get; set; } = new List<Saida>();
+    public List<Entrada> Entradas { get; set; } = new List<Entrada>();
 
 
 
@@ -62,7 +64,7 @@ public class ContextoJson
         this.Pacientes = contextoSalvo.Pacientes;
         this.Medicamentos = contextoSalvo.Medicamentos;
         this.Funcionarios = contextoSalvo.Funcionarios;
-        // this.Entrada = contextoSalvo.Entrada;
+        this.Entradas = contextoSalvo.Entradas;
         this.Saidas = contextoSalvo.Saidas;
     }
 }

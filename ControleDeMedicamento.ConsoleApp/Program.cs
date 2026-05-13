@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using ControleDeMedicamento.ConsoleApp.Compartilhado;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada;
+using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeEntrada.Arquivo;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisiçãoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloEstoque.RequisicaoDeSaida;
 using ControleDeMedicamento.ConsoleApp.ModuloFornecedores;
@@ -28,7 +30,8 @@ IRepositorio<Fornecedor> repositorioFornecedor = new RepositorioFornecedoresEmAr
 IRepositorio<Paciente> repositorioPaciente = new RepositorioPaciente(contexto);
 IRepositorio<Medicamento> repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
 IRepositorio<Funcionario> repositorioFuncionario = new RepositorioFuncionarios(contexto);
-RepositorioSaida repositorioSaida = new RepositorioSaida(contexto);
+IRepositorio<Saida> repositorioSaida = new RepositorioSaida(contexto);
+IRepositorio<Entrada> repositorioEntrada = new RepositorioEntradaEmArquivo(contexto);
 
 TelaPrincipal telaPrincipal = new TelaPrincipal(repositorioFornecedor, repositorioPaciente, repositorioMedicamento, repositorioFuncionario, repositorioSaida);
 
@@ -49,8 +52,8 @@ while (true)
             break;
         if (telaSelecionada is TelaEstoque telaEstoque)
         {
-            // if (opcaoSubMenu == "1") 
-            //telaEstoque.
+            if (opcaoSubMenu == "1")
+                telaSelecionada = new TelaEntrada("Entrada", repositorioEntrada, repositorioMedicamento, repositorioFuncionario);
 
             if (opcaoSubMenu == "2")
                 telaSelecionada = new TelaSaida("Saida", repositorioSaida, repositorioPaciente, repositorioMedicamento);

@@ -82,7 +82,10 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
         if (medicamentoSelecionado == null)
             throw new NullReferenceException("Não foi possivel selecionar este medicamento");
 
-        return new Saida(pacienteSelecionado, medicamentoSelecionado);
+        Console.Write("Digite a quantidade de medicamento que deseja: ");
+        uint quantidade = Convert.ToUInt32(Console.ReadLine());
+
+        return new Saida(pacienteSelecionado, medicamentoSelecionado, Requisicao.Saida, quantidade);
     }
 
     public string SelecionarPaciente()
@@ -119,10 +122,10 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
     public string SelecionarMedicamento()
     {
         Console.WriteLine
-        (
-            "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-            "Id", "Nome", "Descrição", "Quantidade", "Fornecedor"
-        );
+         (
+             "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
+             "Id", "Nome", "Descrição", "Quantidade", "Fornecedor", "Quantidade"
+         );
 
         List<Medicamento> medicamentos = repositorioMedicamento.SelecionarTodos();
 
@@ -130,10 +133,11 @@ public class TelaSaida : TelaBase<Saida>, ITelaCrud, ITelaOpcoes
         {
             Fornecedor? f = m.Fornecedor;
 
-            Console.WriteLine(
-              "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15}",
-              m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome
-          );
+            Console.WriteLine
+            (
+                "{0, -7} | {1, -20} | {2, -15} | {3, -15} | {4, -15} | {5, -15}",
+                m.Id, m.Nome, m.Descricao, m.QuantidadeEmEstoque, f?.Nome, m.QuantidadeEmEstoque
+            );
         }
 
         string? idSelecionado;
